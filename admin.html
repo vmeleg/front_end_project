@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Panel de administración — Gestión de noticias del portal">
+  <title>Admin — Portal de Noticias</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="header">
+    <section class="header__top">
+      <nav class="header__left" aria-label="Acciones de header">
+        <button class="header__icon-btn" id="sidebar-open-btn" aria-label="Abrir menú lateral">☰</button>
+        <button class="header__icon-btn" id="search-toggle-btn" aria-label="Buscar noticias">🔍</button>
+      </nav>
+      <section class="header__center">
+        <a href="/index.html" style="text-decoration:none">
+          <span class="header__logo">[Nombre del Portal]</span>
+          <span class="header__slogan">[Eslogan del portal]</span>
+        </a>
+      </section>
+      <nav class="header__right" aria-label="Acciones de usuario">
+        <span class="header__user-icon" id="header-user-menu" style="display:none">
+          <span id="header-user-name"></span>
+          <button class="btn btn--sm btn--outline" id="header-logout-btn">Salir</button>
+        </span>
+        <a href="/login.html" class="btn btn--primary" id="header-login-btn">Iniciar sesión</a>
+      </nav>
+    </section>
+
+    <section class="search-bar" id="search-bar">
+      <section class="search-bar__input-wrapper">
+        <span class="search-bar__icon">🔍</span>
+        <input type="search" class="search-bar__input" id="search-input" placeholder="Buscar noticias por título..." aria-label="Buscar noticias por título">
+      </section>
+    </section>
+
+    <nav class="category-bar" aria-label="Filtro de categorías">
+      <section class="category-bar__list">
+        <a href="/index.html" class="category-tab">Últimas Noticias</a>
+        <a href="/index.html?cat=Deportes" class="category-tab">Deportes</a>
+        <a href="/index.html?cat=Finanzas" class="category-tab">Finanzas</a>
+        <a href="/index.html?cat=Educación" class="category-tab">Educación</a>
+        <a href="/index.html?cat=Tecnología" class="category-tab">Tecnología</a>
+        <a href="/index.html?cat=Política" class="category-tab">Política</a>
+        <a href="/index.html?cat=Cultura" class="category-tab">Cultura</a>
+        <a href="/index.html?cat=Salud" class="category-tab">Salud</a>
+      </section>
+    </nav>
+  </header>
+
+  <!-- ── Sidebar ─────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar principal">
+    <section class="sidebar__header">
+      <h2 class="sidebar__title">[Nombre del Portal]</h2>
+      <button class="sidebar__close" id="sidebar-close-btn" aria-label="Cerrar menú">✕</button>
+    </section>
+    <a href="/login.html" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">Iniciar sesión / Registrarse</a>
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <a href="/index.html" class="sidebar__link"><span class="sidebar__icon">🏠</span> Inicio</a>
+      <a href="/favoritos.html" class="sidebar__link"><span class="sidebar__icon">★</span> Favoritos</a>
+      <a href="/admin.html" class="sidebar__link"><span class="sidebar__icon">✎</span> Gestión de Noticias</a>
+      <a href="/contacto.html" class="sidebar__link"><span class="sidebar__icon">✉</span> Contáctanos</a>
+    </nav>
+  </aside>
+  <span class="sidebar__overlay" id="sidebar-overlay"></span>
+
+  <!-- ── Main Content ────────────────────────────────────────── -->
+  <main id="admin-main" class="main-content">
+    <section class="section-header">
+      <header>
+        <h1 class="section-header__title">Gestión de Noticias</h1>
+        <p class="section-header__subtitle" id="admin-count"></p>
+      </header>
+      <button class="btn btn--primary" id="btn-new-news">+ Nueva Noticia</button>
+    </section>
+
+    <section class="alert alert--success alert--hidden" id="admin-success-alert"></section>
+
+    <section class="admin-table-wrapper">
+      <table class="admin-table" id="admin-table">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Categoría</th>
+            <th>Autor</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="admin-table-body">
+          <!-- Filas renderizadas por JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- ── Modal: Crear/Editar Noticia ─────────────────────────── -->
+  <aside class="modal" id="admin-modal" role="dialog" aria-label="Formulario de noticia">
+    <span class="modal__overlay" id="admin-modal-overlay"></span>
+    <section class="modal__content" style="max-width: 600px; padding: var(--space-xl);">
+      <button class="modal__close" id="admin-modal-close" aria-label="Cerrar modal">✕</button>
+      <h2 id="admin-modal-title" class="mb-lg" style="font-size: var(--font-size-xl); font-weight: 700;">Nueva Noticia</h2>
+
+      <form id="admin-news-form" novalidate>
+        <input type="hidden" id="admin-news-id">
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-titulo">Título</label>
+          <input type="text" class="form-group__input" id="admin-titulo" placeholder="Título de la noticia"
+                 data-validate="required,minlength" data-min="10">
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-resumen">Resumen</label>
+          <textarea class="form-group__textarea" id="admin-resumen" placeholder="Breve resumen (máx. 200 caracteres)" style="min-height: 80px"
+                    data-validate="required,minlength" data-min="20"></textarea>
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-contenido">Contenido</label>
+          <textarea class="form-group__textarea" id="admin-contenido" placeholder="Contenido completo de la noticia"
+                    data-validate="required,minlength" data-min="50"></textarea>
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-categoria">Categoría</label>
+          <select class="form-group__select" id="admin-categoria" data-validate="required">
+            <option value="">Seleccionar categoría</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Finanzas">Finanzas</option>
+            <option value="Educación">Educación</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Política">Política</option>
+            <option value="Cultura">Cultura</option>
+            <option value="Salud">Salud</option>
+          </select>
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-imagen">URL de imagen</label>
+          <!-- Referencia: las imágenes se ubican en /assets/img/nombre.jpg -->
+          <input type="text" class="form-group__input" id="admin-imagen" placeholder="/assets/img/nombre.jpg">
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-autor">Autor</label>
+          <input type="text" class="form-group__input" id="admin-autor" placeholder="Nombre del autor"
+                 data-validate="required">
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__label" for="admin-fecha">Fecha</label>
+          <input type="date" class="form-group__input" id="admin-fecha"
+                 data-validate="required">
+          <span class="form-group__error"></span>
+        </section>
+
+        <section class="form-group">
+          <label class="form-group__checkbox">
+            <input type="checkbox" id="admin-destacada">
+            Marcar como destacada
+          </label>
+        </section>
+
+        <section style="display:flex; gap: var(--space-md); margin-top: var(--space-lg);">
+          <button type="submit" class="btn btn--primary btn--lg" style="flex:1">Guardar</button>
+          <button type="button" class="btn btn--outline btn--lg" id="admin-modal-cancel" style="flex:1">Cancelar</button>
+        </section>
+      </form>
+    </section>
+  </aside>
+
+  <!-- ── Modal: Confirmar eliminación ────────────────────────── -->
+  <aside class="modal" id="confirm-modal" role="dialog" aria-label="Confirmar eliminación">
+    <span class="modal__overlay" id="confirm-modal-overlay"></span>
+    <section class="modal__content" style="max-width: 420px;">
+      <section class="confirm-dialog">
+        <h3 class="confirm-dialog__title">¿Eliminar noticia?</h3>
+        <p class="confirm-dialog__message" id="confirm-message">Esta acción no se puede deshacer.</p>
+        <nav class="confirm-dialog__actions">
+          <button class="btn btn--danger" id="confirm-delete-btn">Eliminar</button>
+          <button class="btn btn--outline" id="confirm-cancel-btn">Cancelar</button>
+        </nav>
+      </section>
+    </section>
+  </aside>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer class="footer">
+    <section class="footer__content">
+      <section class="footer__brand">
+        <h3 class="footer__brand-name">[Nombre del Portal]</h3>
+        <p class="footer__brand-slogan">[Eslogan del portal]</p>
+        <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura completa de los eventos que importan.</p>
+      </section>
+      <nav class="footer__links">
+        <h4 class="footer__heading">Categorías</h4>
+        <ul class="footer__link-list">
+          <li><a href="/index.html" class="footer__link">Últimas Noticias</a></li>
+          <li><a href="/index.html?cat=Deportes" class="footer__link">Deportes</a></li>
+          <li><a href="/index.html?cat=Finanzas" class="footer__link">Finanzas</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__links">
+        <h4 class="footer__heading">Accesos Rápidos</h4>
+        <ul class="footer__link-list">
+          <li><a href="/index.html" class="footer__link">Inicio</a></li>
+          <li><a href="/favoritos.html" class="footer__link">Favoritos</a></li>
+          <li><a href="/admin.html" class="footer__link">Gestión de Noticias</a></li>
+        </ul>
+      </nav>
+      <section class="footer__contact">
+        <h4 class="footer__heading">Contacto</h4>
+        <p class="footer__contact-item"><span class="footer__contact-icon">✉</span> atencion@portaldenoticias.com</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📞</span> +1 (800) 555-0123</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Av. Prensa 1234, Ciudad de México</p>
+      </section>
+    </section>
+    <section class="footer__bottom">
+      <p>© 2026 [Nombre del Portal]. Todos los derechos reservados.</p>
+    </section>
+  </footer>
+
+  <script src="/js/storage.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/news-service.js"></script>
+  <script src="/js/validations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      /* ── Referencias DOM ──────────────────────────────────── */
+      const tableBody = document.getElementById('admin-table-body');
+      const countEl = document.getElementById('admin-count');
+      const successAlert = document.getElementById('admin-success-alert');
+
+      /* Modal crear/editar */
+      const adminModal = document.getElementById('admin-modal');
+      const adminModalTitle = document.getElementById('admin-modal-title');
+      const adminForm = document.getElementById('admin-news-form');
+      const adminModalClose = document.getElementById('admin-modal-close');
+      const adminModalCancel = document.getElementById('admin-modal-cancel');
+      const adminModalOverlay = document.getElementById('admin-modal-overlay');
+      const btnNewNews = document.getElementById('btn-new-news');
+
+      /* Modal confirmar eliminación */
+      const confirmModal = document.getElementById('confirm-modal');
+      const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+      const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+      const confirmOverlay = document.getElementById('confirm-modal-overlay');
+      let deleteTargetId = null;
+
+      /* Validación inline */
+      Validations.initInlineValidation(adminForm);
+
+      /* ── Helpers de modal ─────────────────────────────────── */
+      const openModal = (modal) => {
+        modal.classList.add('modal--active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeModal = (modal) => {
+        modal.classList.remove('modal--active');
+        document.body.style.overflow = '';
+      };
+
+      const showSuccess = (message) => {
+        successAlert.textContent = `✓ ${message}`;
+        successAlert.classList.remove('alert--hidden');
+        setTimeout(() => successAlert.classList.add('alert--hidden'), 3000);
+      };
+
+      /* ── Formatear fecha ──────────────────────────────────── */
+      const formatDate = (iso) => {
+        const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+        const d = new Date(iso + 'T00:00:00');
+        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+      };
+
+      /* ── Renderizar tabla ─────────────────────────────────── */
+      async function renderTable() {
+        const articles = await NewsService.getAllNews();
+        tableBody.innerHTML = '';
+        countEl.textContent = `${articles.length} noticia${articles.length !== 1 ? 's' : ''}`;
+
+        articles.forEach(article => {
+          const tr = document.createElement('tr');
+
+          const tdTitle = document.createElement('td');
+          tdTitle.textContent = article.titulo.length > 60
+            ? article.titulo.substring(0, 60) + '...'
+            : article.titulo;
+          tr.appendChild(tdTitle);
+
+          const tdCat = document.createElement('td');
+          const badge = document.createElement('span');
+          badge.classList.add('badge', NewsRenderer ? (NewsRenderer._categoryClass[article.categoria] || 'badge--ultimas') : 'badge--ultimas');
+          badge.textContent = article.categoria;
+          tdCat.appendChild(badge);
+          tr.appendChild(tdCat);
+
+          const tdAuthor = document.createElement('td');
+          tdAuthor.textContent = article.autor;
+          tr.appendChild(tdAuthor);
+
+          const tdDate = document.createElement('td');
+          tdDate.textContent = formatDate(article.fecha);
+          tr.appendChild(tdDate);
+
+          const tdActions = document.createElement('td');
+          tdActions.classList.add('admin-table__actions');
+
+          const editBtn = document.createElement('button');
+          editBtn.classList.add('btn', 'btn--outline', 'btn--sm');
+          editBtn.textContent = '✎ Editar';
+          editBtn.addEventListener('click', () => openEditModal(article));
+          tdActions.appendChild(editBtn);
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.classList.add('btn', 'btn--danger', 'btn--sm');
+          deleteBtn.textContent = '🗑 Eliminar';
+          deleteBtn.addEventListener('click', () => {
+            deleteTargetId = article.id;
+            document.getElementById('confirm-message').textContent =
+              `¿Estás seguro de que quieres eliminar "${article.titulo.substring(0, 40)}..."?`;
+            openModal(confirmModal);
+          });
+          tdActions.appendChild(deleteBtn);
+
+          tr.appendChild(tdActions);
+          tableBody.appendChild(tr);
+        });
+      }
+
+      /* ── Abrir modal nueva noticia ────────────────────────── */
+      const openNewModal = () => {
+        adminModalTitle.textContent = 'Nueva Noticia';
+        adminForm.reset();
+        document.getElementById('admin-news-id').value = '';
+        /* Fecha por defecto: hoy */
+        document.getElementById('admin-fecha').value = new Date().toISOString().split('T')[0];
+        openModal(adminModal);
+      };
+
+      /* ── Abrir modal editar noticia ───────────────────────── */
+      const openEditModal = (article) => {
+        adminModalTitle.textContent = 'Editar Noticia';
+        document.getElementById('admin-news-id').value = article.id;
+        document.getElementById('admin-titulo').value = article.titulo;
+        document.getElementById('admin-resumen').value = article.resumen;
+        document.getElementById('admin-contenido').value = article.contenido.replace(/<\/?p>/g, '\n').trim();
+        document.getElementById('admin-categoria').value = article.categoria;
+        document.getElementById('admin-imagen').value = article.imagen || '';
+        document.getElementById('admin-autor').value = article.autor;
+        document.getElementById('admin-fecha').value = article.fecha;
+        document.getElementById('admin-destacada').checked = article.destacada || false;
+        openModal(adminModal);
+      };
+
+      /* ── Event Listeners ──────────────────────────────────── */
+      btnNewNews.addEventListener('click', openNewModal);
+      adminModalClose.addEventListener('click', () => closeModal(adminModal));
+      adminModalCancel.addEventListener('click', () => closeModal(adminModal));
+      adminModalOverlay.addEventListener('click', () => closeModal(adminModal));
+
+      confirmCancelBtn.addEventListener('click', () => closeModal(confirmModal));
+      confirmOverlay.addEventListener('click', () => closeModal(confirmModal));
+
+      /* Guardar noticia (crear o editar) */
+      adminForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!Validations.validateForm(adminForm)) return;
+
+        const id = document.getElementById('admin-news-id').value;
+        const contenidoRaw = document.getElementById('admin-contenido').value;
+        const contenido = contenidoRaw.split('\n').filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
+
+        const data = {
+          titulo: document.getElementById('admin-titulo').value.trim(),
+          resumen: document.getElementById('admin-resumen').value.trim(),
+          contenido: contenido,
+          categoria: document.getElementById('admin-categoria').value,
+          imagen: document.getElementById('admin-imagen').value.trim() || '/assets/img/default.jpg',
+          autor: document.getElementById('admin-autor').value.trim(),
+          fecha: document.getElementById('admin-fecha').value,
+          destacada: document.getElementById('admin-destacada').checked,
+          tiempoLectura: Math.max(1, Math.ceil(contenidoRaw.split(/\s+/).length / 200))
+        };
+
+        if (id) {
+          /* Editar */
+          NewsService.updateNews(id, data);
+          showSuccess('Noticia actualizada correctamente.');
+        } else {
+          /* Crear */
+          NewsService.addNews(data);
+          showSuccess('Noticia creada correctamente.');
+        }
+
+        closeModal(adminModal);
+        /* Invalidar cache para recargar datos */
+        NewsService._seedCache = null;
+        await renderTable();
+      });
+
+      /* Confirmar eliminación */
+      confirmDeleteBtn.addEventListener('click', async () => {
+        if (deleteTargetId) {
+          NewsService.deleteNews(deleteTargetId);
+          deleteTargetId = null;
+          closeModal(confirmModal);
+          showSuccess('Noticia eliminada correctamente.');
+          NewsService._seedCache = null;
+          await renderTable();
+        }
+      });
+
+      /* ── Carga inicial ────────────────────────────────────── */
+      await renderTable();
+    });
+  </script>
+</body>
+</html>

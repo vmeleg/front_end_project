@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detalle de noticia — Portal de Noticias">
+  <title>Detalle — Portal de Noticias</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="header">
+    <section class="header__top">
+      <nav class="header__left" aria-label="Acciones de header">
+        <button class="header__icon-btn" id="sidebar-open-btn" aria-label="Abrir menú lateral">☰</button>
+        <button class="header__icon-btn" id="search-toggle-btn" aria-label="Buscar noticias">🔍</button>
+      </nav>
+      <section class="header__center">
+        <a href="/index.html" style="text-decoration:none">
+          <span class="header__logo">[Nombre del Portal]</span>
+          <span class="header__slogan">[Eslogan del portal]</span>
+        </a>
+      </section>
+      <nav class="header__right" aria-label="Acciones de usuario">
+        <span class="header__user-icon" id="header-user-menu" style="display:none">
+          <span id="header-user-name"></span>
+          <button class="btn btn--sm btn--outline" id="header-logout-btn">Salir</button>
+        </span>
+        <a href="/login.html" class="btn btn--primary" id="header-login-btn">Iniciar sesión</a>
+      </nav>
+    </section>
+
+    <section class="search-bar" id="search-bar">
+      <section class="search-bar__input-wrapper">
+        <span class="search-bar__icon">🔍</span>
+        <input type="search" class="search-bar__input" id="search-input" placeholder="Buscar noticias por título..." aria-label="Buscar noticias por título">
+      </section>
+    </section>
+
+    <nav class="category-bar" aria-label="Filtro de categorías">
+      <section class="category-bar__list">
+        <a href="/index.html" class="category-tab">Últimas Noticias</a>
+        <a href="/index.html?cat=Deportes" class="category-tab">Deportes</a>
+        <a href="/index.html?cat=Finanzas" class="category-tab">Finanzas</a>
+        <a href="/index.html?cat=Educación" class="category-tab">Educación</a>
+        <a href="/index.html?cat=Tecnología" class="category-tab">Tecnología</a>
+        <a href="/index.html?cat=Política" class="category-tab">Política</a>
+        <a href="/index.html?cat=Cultura" class="category-tab">Cultura</a>
+        <a href="/index.html?cat=Salud" class="category-tab">Salud</a>
+      </section>
+    </nav>
+  </header>
+
+  <!-- ── Sidebar ─────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar principal">
+    <section class="sidebar__header">
+      <h2 class="sidebar__title">[Nombre del Portal]</h2>
+      <button class="sidebar__close" id="sidebar-close-btn" aria-label="Cerrar menú">✕</button>
+    </section>
+    <a href="/login.html" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">Iniciar sesión / Registrarse</a>
+    <nav class="sidebar__nav" aria-label="Navegación principal">
+      <a href="/index.html" class="sidebar__link"><span class="sidebar__icon">🏠</span> Inicio</a>
+      <a href="/favoritos.html" class="sidebar__link"><span class="sidebar__icon">★</span> Favoritos</a>
+      <a href="/admin.html" class="sidebar__link"><span class="sidebar__icon">✎</span> Gestión de Noticias</a>
+      <a href="/contacto.html" class="sidebar__link"><span class="sidebar__icon">✉</span> Contáctanos</a>
+    </nav>
+  </aside>
+  <span class="sidebar__overlay" id="sidebar-overlay"></span>
+
+  <!-- ── Main Content ────────────────────────────────────────── -->
+  <main id="detail-main" class="main-content">
+    <nav class="mb-lg">
+      <a href="/index.html" class="btn btn--outline btn--sm">← Volver al inicio</a>
+    </nav>
+    <article id="detail-container">
+      <!-- Contenido renderizado por JS -->
+    </article>
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer class="footer">
+    <section class="footer__content">
+      <section class="footer__brand">
+        <h3 class="footer__brand-name">[Nombre del Portal]</h3>
+        <p class="footer__brand-slogan">[Eslogan del portal]</p>
+        <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura completa de los eventos que importan.</p>
+      </section>
+      <nav class="footer__links">
+        <h4 class="footer__heading">Categorías</h4>
+        <ul class="footer__link-list">
+          <li><a href="/index.html" class="footer__link">Últimas Noticias</a></li>
+          <li><a href="/index.html?cat=Deportes" class="footer__link">Deportes</a></li>
+          <li><a href="/index.html?cat=Finanzas" class="footer__link">Finanzas</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__links">
+        <h4 class="footer__heading">Accesos Rápidos</h4>
+        <ul class="footer__link-list">
+          <li><a href="/index.html" class="footer__link">Inicio</a></li>
+          <li><a href="/favoritos.html" class="footer__link">Favoritos</a></li>
+          <li><a href="/admin.html" class="footer__link">Gestión de Noticias</a></li>
+        </ul>
+      </nav>
+      <section class="footer__contact">
+        <h4 class="footer__heading">Contacto</h4>
+        <p class="footer__contact-item"><span class="footer__contact-icon">✉</span> atencion@portaldenoticias.com</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📞</span> +1 (800) 555-0123</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Av. Prensa 1234, Ciudad de México</p>
+      </section>
+    </section>
+    <section class="footer__bottom">
+      <p>© 2026 [Nombre del Portal]. Todos los derechos reservados.</p>
+    </section>
+  </footer>
+
+  <script src="/js/storage.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/news-service.js"></script>
+  <script src="/js/favorites.js"></script>
+  <script src="/js/news-renderer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+
+      if (!id) {
+        window.location.href = '/index.html';
+        return;
+      }
+
+      const article = await NewsService.getNewsById(id);
+
+      if (!article) {
+        window.location.href = '/index.html';
+        return;
+      }
+
+      /* Actualizar título de la página */
+      document.title = `${article.titulo} — Portal de Noticias`;
+
+      /* Renderizar detalle */
+      NewsRenderer.renderDetail(article, '#detail-container');
+    });
+  </script>
+</body>
+</html>

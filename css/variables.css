@@ -1,0 +1,77 @@
+/* ==========================================================================
+   variables.css — Design Tokens del Portal de Noticias
+   Paleta azul/blanco, tipografía Inter, espaciados y efectos globales.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── Paleta principal ─────────────────────────────────────── */
+  --color-primary:       #1a73e8;
+  --color-primary-dark:  #0d47a1;
+  --color-primary-light: #e8f0fe;
+  --color-surface:       #ffffff;
+  --color-bg:            #f0f4f8;
+  --color-border:        #dadce0;
+  --color-text:          #212121;
+  --color-text-muted:    #757575;
+  --color-danger:        #d93025;
+  --color-success:       #1e8e3e;
+  --color-warning:       #f9ab00;
+
+  /* ── Layout ────────────────────────────────────────────────── */
+  --sidebar-width:        260px;
+  --sidebar-collapsed:    0px;
+  --header-height:        64px;
+  --category-bar-height:  48px;
+  --content-max-width:    1280px;
+
+  /* ── Tipografía ────────────────────────────────────────────── */
+  --font-primary:    'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-size-xs:    0.75rem;
+  --font-size-sm:    0.875rem;
+  --font-size-base:  1rem;
+  --font-size-lg:    1.125rem;
+  --font-size-xl:    1.25rem;
+  --font-size-2xl:   1.5rem;
+  --font-size-3xl:   1.875rem;
+
+  /* ── Espaciados ────────────────────────────────────────────── */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+
+  /* ── Efectos ───────────────────────────────────────────────── */
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    16px;
+  --radius-xl:    24px;
+  --radius-full:  9999px;
+
+  --shadow-card:       0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-modal:      0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-header:     0 2px 4px rgba(0, 0, 0, 0.08);
+
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* ── Z-index ───────────────────────────────────────────────── */
+  --z-sidebar:  100;
+  --z-header:   200;
+  --z-overlay:  290;
+  --z-modal:    300;
+
+  /* ── Colores por categoría (badges) ────────────────────────── */
+  --cat-ultimas:     #1a73e8;
+  --cat-deportes:    #1565c0;
+  --cat-finanzas:    #0d47a1;
+  --cat-educacion:   #2e7d32;
+  --cat-tecnologia:  #6a1b9a;
+  --cat-politica:    #c62828;
+  --cat-cultura:     #00838f;
+  --cat-salud:       #ef6c00;
+}
