@@ -47,6 +47,28 @@ const Validations = {
   },
 
   /**
+   * Valida número de teléfono colombiano (campo opcional).
+   * Solo valida si hay un valor; si está vacío considera válido.
+   * Acepta: +573XXXXXXXXX | 3XXXXXXXXX (celular, 10 dígitos)
+   *         +576XXXXXXXX  | 6XXXXXXXX  (fijo, 10 dígitos)
+   * @param {string} value
+   * @returns {{ valid: boolean, message: string }}
+   */
+  validatePhoneColombia(value) {
+    const cleaned = (value || '').trim().replace(/[\s\-\(\)\.]/g, '');
+    // Si está vacío es válido (campo opcional)
+    if (cleaned === '' || cleaned === '+57') return { valid: true, message: '' };
+    // Quitar prefijo +57 para normalizar
+    const withoutPrefix = cleaned.startsWith('+57') ? cleaned.slice(3) : cleaned;
+    // Celular: empieza por 3, 10 dígitos | Fijo: empieza por 6, 10 dígitos
+    const pattern = /^[36][0-9]{9}$/;
+    return {
+      valid: pattern.test(withoutPrefix),
+      message: 'Ingresa un número colombiano válido (ej: +57 300 123 4567 o 3001234567).'
+    };
+  },
+
+  /**
    * Valida longitud mínima.
    * @param {string} value
    * @param {number} min — Longitud mínima requerida.
@@ -141,6 +163,9 @@ const Validations = {
             break;
           case 'phone':
             result = this.validatePhone(value);
+            break;
+          case 'phone-co-optional':
+            result = this.validatePhoneColombia(value);
             break;
           case 'minlength': {
             const min = parseInt(field.dataset.min || '3', 10);
