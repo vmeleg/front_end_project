@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portal de Noticias — Tu fuente confiable de noticias actualizadas, análisis y cobertura completa.">
-  <title>Inicio — Portal de Noticias</title>
+  <meta name="description"
+    content="PolPress — Conectando ideas, tendencias y actualidad. Tu fuente confiable de noticias actualizadas.">
+  <title>Inicio — PoliPress</title>
+  <link rel="icon" type="image/jpeg" href="/assets/icons/logo.jpg">
   <link rel="stylesheet" href="/css/variables.css">
   <link rel="stylesheet" href="/css/layout.css">
   <link rel="stylesheet" href="/css/components.css">
 </head>
+
 <body>
 
   <!-- ── Header ──────────────────────────────────────────────── -->
@@ -16,11 +20,16 @@
     <section class="header__top">
       <nav class="header__left" aria-label="Acciones de header">
         <button class="header__icon-btn" id="sidebar-open-btn" aria-label="Abrir menú lateral">☰</button>
-        <button class="header__icon-btn" id="search-toggle-btn" aria-label="Buscar noticias">🔍</button>
+        <button class="header__icon-btn" id="search-toggle-btn" aria-label="Buscar noticias"><img
+            src="/assets/icons/search.jpg" alt="Buscar" class="sidebar__nav-icon"
+            style="width:22px;height:22px;"></button>
       </nav>
       <section class="header__center">
-        <span class="header__logo">[Nombre del Portal]</span>
-        <span class="header__slogan">[Eslogan del portal]</span>
+        <a href="/index.html" class="header__brand-link">
+          <img src="/assets/icons/logo.jpg" alt="PoliPress" class="header__logo-img">
+          <span class="header__logo">PoliPress</span>
+          <span class="header__slogan">Conectando ideas, tendencias y actualidad.</span>
+        </a>
       </section>
       <nav class="header__right" aria-label="Acciones de usuario">
         <span class="header__user-icon" id="header-user-menu" style="display:none">
@@ -34,8 +43,10 @@
     <!-- Barra de búsqueda (expandible) -->
     <section class="search-bar" id="search-bar">
       <section class="search-bar__input-wrapper">
-        <span class="search-bar__icon">🔍</span>
-        <input type="search" class="search-bar__input" id="search-input" placeholder="Buscar noticias por título..." aria-label="Buscar noticias por título">
+        <span class="search-bar__icon"><img src="/assets/icons/search.jpg" alt="" width="18" height="18"
+            style="border-radius:3px;object-fit:cover;"></span>
+        <input type="search" class="search-bar__input" id="search-input" placeholder="Buscar noticias por título..."
+          aria-label="Buscar noticias por título">
       </section>
     </section>
 
@@ -57,13 +68,14 @@
   <!-- ── Sidebar ─────────────────────────────────────────────── -->
   <aside class="sidebar" id="sidebar" aria-label="Sidebar principal">
     <section class="sidebar__header">
-      <h2 class="sidebar__title">[Nombre del Portal]</h2>
+      <h2 class="sidebar__title">PoliPress</h2>
       <button class="sidebar__close" id="sidebar-close-btn" aria-label="Cerrar menú">✕</button>
     </section>
-    <a href="/login.html" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">Iniciar sesión / Registrarse</a>
+    <a href="/login.html" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">Iniciar sesión /
+      Registrarse</a>
     <nav class="sidebar__nav" aria-label="Navegación principal">
       <a href="/index.html" class="sidebar__link">
-        <span class="sidebar__icon">🏠</span> Inicio
+        <img src="/assets/icons/home.jpg" alt="Inicio" class="sidebar__nav-icon"> Inicio
       </a>
       <a href="/favoritos.html" class="sidebar__link">
         <span class="sidebar__icon">★</span> Favoritos
@@ -97,18 +109,19 @@
   <footer class="footer">
     <section class="footer__content">
       <section class="footer__brand">
-        <h3 class="footer__brand-name">[Nombre del Portal]</h3>
-        <p class="footer__brand-slogan">[Eslogan del portal]</p>
-        <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura completa de los eventos que importan.</p>
+        <h3 class="footer__brand-name">PoliPress</h3>
+        <p class="footer__brand-slogan">Conectando ideas, tendencias y actualidad.</p>
+        <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura
+          completa de los eventos que importan.</p>
       </section>
       <nav class="footer__links">
         <h4 class="footer__heading">Categorías</h4>
         <ul class="footer__link-list">
-          <li><a href="#" class="footer__link">Últimas Noticias</a></li>
-          <li><a href="#" class="footer__link">Deportes</a></li>
-          <li><a href="#" class="footer__link">Finanzas</a></li>
-          <li><a href="#" class="footer__link">Educación</a></li>
-          <li><a href="#" class="footer__link">Tecnología</a></li>
+          <li><a href="/index.html" class="footer__link">Últimas Noticias</a></li>
+          <li><a href="/index.html?cat=Deportes" class="footer__link">Deportes</a></li>
+          <li><a href="/index.html?cat=Finanzas" class="footer__link">Finanzas</a></li>
+          <li><a href="/index.html?cat=Educación" class="footer__link">Educación</a></li>
+          <li><a href="/index.html?cat=Tecnología" class="footer__link">Tecnología</a></li>
         </ul>
       </nav>
       <nav class="footer__links">
@@ -121,13 +134,14 @@
       </nav>
       <section class="footer__contact">
         <h4 class="footer__heading">Contacto</h4>
-        <p class="footer__contact-item"><span class="footer__contact-icon">✉</span> atencion@portaldenoticias.com</p>
-        <p class="footer__contact-item"><span class="footer__contact-icon">📞</span> +1 (800) 555-0123</p>
-        <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Av. Prensa 1234, Ciudad de México</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">✉</span> contacto@polipress.co</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📞</span> +57 601 234 5678</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Calle 57 # 13-40, Bogotá D.C.,
+          Colombia</p>
       </section>
     </section>
     <section class="footer__bottom">
-      <p>© 2026 [Nombre del Portal]. Todos los derechos reservados.</p>
+      <p>© 2026 PoliPress. Todos los derechos reservados.</p>
     </section>
   </footer>
 
@@ -203,4 +217,5 @@
     });
   </script>
 </body>
+
 </html>

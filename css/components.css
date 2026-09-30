@@ -446,6 +446,13 @@
   margin-bottom: var(--space-xs);
 }
 
+.form-group__optional {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: 400;
+  margin-left: var(--space-xs);
+}
+
 .form-group__input,
 .form-group__select,
 .form-group__textarea {
