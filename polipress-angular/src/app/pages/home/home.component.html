@@ -1,0 +1,24 @@
+<main id="home-main" class="main-content">
+  <section class="section-header">
+    <header>
+      <h1 class="section-header__title" id="section-title">{{ view()?.title ?? 'Últimas Noticias' }}</h1>
+      <p class="section-header__subtitle" id="article-count">{{ view() ? countLabel(view()!.articles.length) : '' }}</p>
+    </header>
+    <p class="section-header__meta" id="updated-time">{{ updated }}</p>
+  </section>
+
+  <section class="news-grid" id="news-container" aria-label="Grid de noticias">
+    @if (view(); as v) {
+    @for (n of v.articles; track n.id) {
+    <app-news-card [noticia]="n" />
+    } @empty {
+    <section class="empty-state">
+      <span class="empty-state__icon">📭</span>
+      <h3 class="empty-state__title">Sin resultados</h3>
+      <p class="empty-state__message">No se encontraron noticias.</p>
+      <a routerLink="/" (click)="resetSearchAndGoHome()" class="btn btn--primary">Ir al inicio</a>
+    </section>
+    }
+    }
+  </section>
+</main>

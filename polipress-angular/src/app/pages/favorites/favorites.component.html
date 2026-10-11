@@ -1,0 +1,48 @@
+<main id="favorites-main" class="main-content">
+  <section class="section-header">
+    <header>
+      <h1 class="section-header__title">Mis Favoritos</h1>
+      <p class="section-header__subtitle" id="fav-count">{{ countLabel() }}</p>
+    </header>
+  </section>
+
+  <section class="news-grid" id="favorites-container" aria-label="Noticias favoritas">
+    @switch (view()?.state) {
+      @case ('anonymous') {
+        <section class="empty-state">
+          <span class="empty-state__icon">🔒</span>
+          <h3 class="empty-state__title">Inicia sesión para ver tus favoritos</h3>
+          <p class="empty-state__message">Los favoritos se guardan por cuenta de usuario. Inicia sesión para acceder a
+            los tuyos.</p>
+          <a routerLink="/login" [queryParams]="{ redirect: '/favoritos' }" class="btn btn--primary">Iniciar sesión</a>
+        </section>
+      }
+      @case ('empty') {
+        <section class="empty-state">
+          <span class="empty-state__icon">📭</span>
+          <h3 class="empty-state__title">Sin resultados</h3>
+          <p class="empty-state__message">No tienes artículos guardados aún. Explora las noticias y marca las que te
+            interesen.</p>
+          <a routerLink="/" class="btn btn--primary">Ir al inicio</a>
+        </section>
+      }
+      @case ('unavailable') {
+        <section class="empty-state">
+          <span class="empty-state__icon">📭</span>
+          <h3 class="empty-state__title">Sin resultados</h3>
+          <p class="empty-state__message">Las noticias guardadas ya no están disponibles.</p>
+          <a routerLink="/" class="btn btn--primary">Ir al inicio</a>
+        </section>
+      }
+      @case ('list') {
+        @if (view(); as v) {
+          @if (v.state === 'list') {
+            @for (n of v.articles; track n.id) {
+              <app-news-card [noticia]="n" />
+            }
+          }
+        }
+      }
+    }
+  </section>
+</main>

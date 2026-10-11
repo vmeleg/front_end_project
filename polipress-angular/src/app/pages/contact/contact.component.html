@@ -1,0 +1,51 @@
+<main id="contact-main" class="main-content">
+  <section class="auth-card" style="max-width: 560px">
+    <h1 class="auth-card__title">Contáctanos</h1>
+    <p class="auth-card__subtitle">Envíanos tus comentarios, sugerencias o consultas.</p>
+
+    <section class="alert alert--success" [class.alert--hidden]="!success()" id="contact-success-alert">
+      ✓ ¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.
+    </section>
+
+    <form id="contact-form" class="auth-card__form" novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+      <section class="form-group" [class.form-group--invalid]="isInvalid('nombre')">
+        <label class="form-group__label" for="contact-name">Nombre completo</label>
+        <input type="text" class="form-group__input" id="contact-name" placeholder="Tu nombre completo"
+          formControlName="nombre" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('nombre') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('correo')">
+        <label class="form-group__label" for="contact-email">Correo electrónico</label>
+        <input type="email" class="form-group__input" id="contact-email" placeholder="correo@ejemplo.com"
+          formControlName="correo" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('correo') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('telefono')">
+        <label class="form-group__label" for="contact-phone">
+          Teléfono <span class="form-group__optional">(opcional)</span>
+        </label>
+        <input type="tel" class="form-group__input" id="contact-phone" placeholder="+57 300 123 4567"
+          formControlName="telefono" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('telefono') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('asunto')">
+        <label class="form-group__label" for="contact-subject">Asunto</label>
+        <input type="text" class="form-group__input" id="contact-subject" placeholder="Asunto del mensaje"
+          formControlName="asunto" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('asunto') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('mensaje')">
+        <label class="form-group__label" for="contact-message">Mensaje</label>
+        <textarea class="form-group__textarea" id="contact-message" placeholder="Escribe tu mensaje aquí..."
+          formControlName="mensaje" (blur)="onBlur()"></textarea>
+        <span class="form-group__error">{{ errorOf('mensaje') }}</span>
+      </section>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg">Enviar mensaje</button>
+    </form>
+  </section>
+</main>

@@ -1,0 +1,150 @@
+<main id="admin-main" class="main-content">
+  <section class="section-header">
+    <header>
+      <h1 class="section-header__title">Gestión de Noticias</h1>
+      <p class="section-header__subtitle" id="admin-count">{{ loaded() ? countLabel() : '' }}</p>
+    </header>
+    <button class="btn btn--primary" id="btn-new-news" (click)="openNew()">+ Nueva Noticia</button>
+  </section>
+
+  <section class="alert alert--success" [class.alert--hidden]="!successMsg()" id="admin-success-alert">{{ successMsg()
+    }}</section>
+
+  <section class="admin-table-wrapper">
+    <table class="admin-table" id="admin-table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Categoría</th>
+          <th>Autor</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="admin-table-body">
+        @for (a of articles(); track a.id) {
+        <tr>
+          <td>{{ truncate(a.titulo, 60) }}</td>
+          <td><span [class]="'badge ' + badgeClass(a.categoria)">{{ a.categoria }}</span></td>
+          <td>{{ a.autor }}</td>
+          <td>{{ a.fecha | dateEs }}</td>
+          <td class="admin-table__actions">
+            <button class="btn btn--outline btn--sm" (click)="openEdit(a)">✎ Editar</button>
+            <button class="btn btn--danger btn--sm" (click)="askDelete(a)">🗑 Eliminar</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+</main>
+
+
+<aside class="modal" id="admin-modal" [class.modal--active]="activeModal() === 'form'" role="dialog"
+  aria-label="Formulario de noticia">
+  <span class="modal__overlay" id="admin-modal-overlay" (click)="closeModal()"></span>
+  <section class="modal__content" style="max-width: 600px; padding: var(--space-xl);">
+    <button class="modal__close" id="admin-modal-close" aria-label="Cerrar modal" (click)="closeModal()">✕</button>
+    <h2 id="admin-modal-title" class="mb-lg" style="font-size: var(--font-size-xl); font-weight: 700;">{{ modalTitle()
+      }}
+    </h2>
+
+    <form id="admin-news-form" novalidate [formGroup]="form" (ngSubmit)="onSave()">
+      <section class="form-group" [class.form-group--invalid]="isInvalid('titulo')">
+        <label class="form-group__label" for="admin-titulo">Título</label>
+        <input type="text" class="form-group__input" id="admin-titulo" placeholder="Título de la noticia"
+          formControlName="titulo" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('titulo') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('resumen')">
+        <label class="form-group__label" for="admin-resumen">Resumen</label>
+        <textarea class="form-group__textarea" id="admin-resumen" placeholder="Breve resumen (máx. 200 caracteres)"
+          style="min-height: 80px" formControlName="resumen" (blur)="onBlur()"></textarea>
+        <span class="form-group__error">{{ errorOf('resumen') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('contenido')">
+        <label class="form-group__label" for="admin-contenido">Contenido</label>
+        <textarea class="form-group__textarea" id="admin-contenido" placeholder="Contenido completo de la noticia"
+          formControlName="contenido" (blur)="onBlur()"></textarea>
+        <span class="form-group__error">{{ errorOf('contenido') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('categoria')">
+        <label class="form-group__label" for="admin-categoria">Categoría</label>
+        <select class="form-group__select" id="admin-categoria" formControlName="categoria" (blur)="onBlur()">
+          <option value="">Seleccionar categoría</option>
+          @for (cat of categorias; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+        <span class="form-group__error">{{ errorOf('categoria') }}</span>
+      </section>
+
+      <section class="form-group">
+        <label class="form-group__label" for="admin-imagen">URL de imagen</label>
+
+        <input type="text" class="form-group__input" id="admin-imagen" placeholder="/assets/img/nombre.jpg"
+          formControlName="imagen">
+        <span class="form-group__error"></span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('autor')">
+        <label class="form-group__label" for="admin-autor">Autor</label>
+        <input type="text" class="form-group__input" id="admin-autor" placeholder="Nombre del autor"
+          formControlName="autor" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('autor') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="isInvalid('fecha')">
+        <label class="form-group__label" for="admin-fecha">Fecha</label>
+        <input type="date" class="form-group__input" id="admin-fecha" formControlName="fecha" (blur)="onBlur()">
+        <span class="form-group__error">{{ errorOf('fecha') }}</span>
+      </section>
+
+      <section class="form-group">
+        <label class="form-group__checkbox">
+          <input type="checkbox" id="admin-destacada" formControlName="destacada">
+          Marcar como destacada
+        </label>
+      </section>
+
+      <section style="display:flex; gap: var(--space-md); margin-top: var(--space-lg);">
+        <button type="submit" class="btn btn--primary btn--lg" style="flex:1">Guardar</button>
+        <button type="button" class="btn btn--outline btn--lg" id="admin-modal-cancel" style="flex:1"
+          (click)="closeModal()">Cancelar</button>
+      </section>
+    </form>
+  </section>
+</aside>
+
+<aside class="modal" id="confirm-modal" [class.modal--active]="activeModal() === 'confirm'" role="dialog"
+  aria-label="Confirmar eliminación">
+  <span class="modal__overlay" id="confirm-modal-overlay" (click)="closeModal()"></span>
+  <section class="modal__content" style="max-width: 420px;">
+    <section class="confirm-dialog">
+      <h3 class="confirm-dialog__title">¿Eliminar noticia?</h3>
+      <p class="confirm-dialog__message" id="confirm-message">{{ confirmMessage() }}</p>
+      <nav class="confirm-dialog__actions">
+        <button class="btn btn--danger" id="confirm-delete-btn" (click)="confirmDelete()">Eliminar</button>
+        <button class="btn btn--outline" id="confirm-cancel-btn" (click)="closeModal()">Cancelar</button>
+      </nav>
+    </section>
+  </section>
+</aside>
+
+
+<aside class="modal" id="access-denied-modal" [class.modal--active]="activeModal() === 'denied'" role="alertdialog"
+  aria-modal="true" aria-label="Acceso restringido">
+  <span class="modal__overlay" id="access-denied-overlay"></span>
+  <section class="modal__content">
+    <section class="confirm-dialog">
+      <h3 class="confirm-dialog__title">Acceso restringido</h3>
+      <p class="confirm-dialog__message">Lo sentimos, no tienes permisos para realizar esta acción.</p>
+      <nav class="confirm-dialog__actions" aria-label="Acciones de acceso restringido">
+        <a class="btn btn--primary" id="access-denied-home-btn" routerLink="/">Volver al inicio</a>
+      </nav>
+    </section>
+  </section>
+</aside>

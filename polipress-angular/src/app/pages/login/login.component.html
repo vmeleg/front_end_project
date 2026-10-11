@@ -1,0 +1,80 @@
+<main id="login-main" class="main-content">
+  <section class="auth-card">
+    <span class="auth-card__icon">👤</span>
+    <h1 class="auth-card__title">Bienvenido de vuelta</h1>
+    <p class="auth-card__subtitle">Accede a tu cuenta del portal</p>
+
+
+    <nav class="auth-card__tabs" aria-label="Tabs de autenticación">
+      <button class="auth-card__tab" [class.auth-card__tab--active]="tab() === 'login'" id="tab-login" data-tab="login"
+        (click)="selectTab('login')">Iniciar Sesión</button>
+      <button class="auth-card__tab" [class.auth-card__tab--active]="tab() === 'register'" id="tab-register"
+        data-tab="register" (click)="selectTab('register')">Registrarse</button>
+    </nav>
+
+
+    <section class="alert alert--error" [class.alert--hidden]="!error()" id="auth-error-alert">{{ error() }}</section>
+    <section class="alert alert--success" [class.alert--hidden]="!successMsg()" id="auth-success-alert">{{ successMsg()
+      }}</section>
+
+
+    <form id="login-form" class="auth-card__form" [class.auth-card__form--hidden]="tab() !== 'login'" novalidate
+      [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <section class="form-group" [class.form-group--invalid]="invalid(loginForm, 'email')">
+        <label class="form-group__label" for="login-email">Correo electrónico</label>
+        <input type="email" class="form-group__input" id="login-email" placeholder="correo@ejemplo.com"
+          formControlName="email" (blur)="onBlur(loginForm)">
+        <span class="form-group__error">{{ errorOf(loginForm, 'email') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="invalid(loginForm, 'password')">
+        <label class="form-group__label" for="login-password">Contraseña</label>
+        <input type="password" class="form-group__input" id="login-password" placeholder="••••••••"
+          formControlName="password" (blur)="onBlur(loginForm)">
+        <span class="form-group__error">{{ errorOf(loginForm, 'password') }}</span>
+      </section>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg">Iniciar Sesión</button>
+
+      <a href="#" class="auth-card__link" (click)="$event.preventDefault()">¿Olvidaste tu contraseña?</a>
+    </form>
+
+
+    <form id="register-form" class="auth-card__form" [class.auth-card__form--hidden]="tab() !== 'register'" novalidate
+      [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <section class="form-group" [class.form-group--invalid]="invalid(registerForm, 'name')">
+        <label class="form-group__label" for="register-name">Nombre completo</label>
+        <input type="text" class="form-group__input" id="register-name" placeholder="Tu nombre completo"
+          formControlName="name" (blur)="onBlur(registerForm)">
+        <span class="form-group__error">{{ errorOf(registerForm, 'name') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="invalid(registerForm, 'email')">
+        <label class="form-group__label" for="register-email">Correo electrónico</label>
+        <input type="email" class="form-group__input" id="register-email" placeholder="correo@ejemplo.com"
+          formControlName="email" (blur)="onBlur(registerForm)">
+        <span class="form-group__error">{{ errorOf(registerForm, 'email') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="invalid(registerForm, 'password')">
+        <label class="form-group__label" for="register-password">Contraseña</label>
+        <input type="password" class="form-group__input" id="register-password" placeholder="Mínimo 6 caracteres"
+          formControlName="password" (blur)="onBlur(registerForm)">
+        <span class="form-group__error">{{ errorOf(registerForm, 'password') }}</span>
+      </section>
+
+      <section class="form-group" [class.form-group--invalid]="invalid(registerForm, 'confirm')">
+        <label class="form-group__label" for="register-confirm">Confirmar contraseña</label>
+        <input type="password" class="form-group__input" id="register-confirm" placeholder="Repite tu contraseña"
+          formControlName="confirm" (blur)="onBlur(registerForm)">
+        <span class="form-group__error">{{ errorOf(registerForm, 'confirm') }}</span>
+      </section>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg">Registrarse</button>
+    </form>
+
+    <p class="auth-card__footer">Al continuar, aceptas nuestros <a href="#" (click)="$event.preventDefault()">Términos
+        de
+        Uso</a> y <a href="#" (click)="$event.preventDefault()">Política de Privacidad</a>.</p>
+  </section>
+</main>
