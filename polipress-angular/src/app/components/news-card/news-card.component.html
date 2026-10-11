@@ -1,0 +1,28 @@
+@let n = noticia();
+<article class="card" [attr.data-id]="n.id">
+  <figure class="card__image-wrapper">
+    @if (!imgFailed()) {
+      <img class="card__image" [src]="n.imagen" [alt]="n.titulo" loading="lazy" (error)="onImgError()">
+    } @else {
+      <span class="card__image-placeholder">📰</span>
+    }
+    <span class="card__badge"><span [class]="'badge ' + badge()">{{ n.categoria }}</span></span>
+    <button class="card__fav-btn" [class.card__fav-btn--active]="isFav()" aria-label="Alternar favorito"
+      [attr.data-id]="n.id" (click)="toggleFavorite($event)">{{ isFav() ? '★' : '☆' }}</button>
+  </figure>
+
+  <section class="card__body">
+    <h3 class="card__title">{{ n.titulo }}</h3>
+    <p class="card__excerpt">{{ n.resumen }}</p>
+    <footer class="card__meta">
+      <span>{{ n.autor }}</span>
+      <span class="card__meta-separator"></span>
+      <span>{{ n.fecha | dateEs }}</span>
+      <span class="card__meta-separator"></span>
+      <span>{{ n.tiempoLectura || 3 }} min</span>
+    </footer>
+    <nav class="card__action">
+      <button class="btn btn--outline btn--block" (click)="openDetail()">Ver más detalles →</button>
+    </nav>
+  </section>
+</article>

@@ -1,0 +1,13 @@
+@if (article(); as a) {
+  <aside id="news-detail-modal" class="modal" [class.modal--active]="active()" role="dialog"
+    aria-label="Detalle de noticia">
+    <span class="modal__overlay" (click)="close()"></span>
+    <section class="modal__content">
+      <button class="modal__close" aria-label="Cerrar modal" (click)="close()">✕</button>
+      <app-news-detail-content [noticia]="a" variant="modal" />
+      <footer class="modal__footer">
+        <button class="modal__footer-close" (click)="close()">Cerrar</button>
+      </footer>
+    </section>
+  </aside>
+}

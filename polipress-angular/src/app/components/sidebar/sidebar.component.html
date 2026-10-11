@@ -1,0 +1,26 @@
+<aside class="sidebar" id="sidebar" aria-label="Sidebar principal" [class.sidebar--open]="layout.sidebarOpen()">
+  <section class="sidebar__header">
+    <h2 class="sidebar__title">PoliPress</h2>
+    <button class="sidebar__close" id="sidebar-close-btn" aria-label="Cerrar menú"
+      (click)="layout.closeSidebar()">✕</button>
+  </section>
+  <a routerLink="/login" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">{{ user()?.user ?? 'Iniciar
+    sesión / Registrarse' }}</a>
+  <nav class="sidebar__nav" aria-label="Navegación principal">
+    <a routerLink="/" class="sidebar__link" routerLinkActive="sidebar__link--active"
+      [routerLinkActiveOptions]="{ exact: true }" (click)="layout.resetSearch()">
+      <img src="/assets/icons/home.jpg" alt="Inicio" class="sidebar__nav-icon"> Inicio
+    </a>
+    <a routerLink="/favoritos" class="sidebar__link" routerLinkActive="sidebar__link--active">
+      <span class="sidebar__icon">★</span> Favoritos
+    </a>
+    <a routerLink="/admin" class="sidebar__link" routerLinkActive="sidebar__link--active">
+      <span class="sidebar__icon">✎</span> Gestión de Noticias
+    </a>
+    <a routerLink="/contacto" class="sidebar__link" routerLinkActive="sidebar__link--active">
+      <span class="sidebar__icon">✉</span> Contáctanos
+    </a>
+  </nav>
+</aside>
+<span class="sidebar__overlay" id="sidebar-overlay" [class.sidebar__overlay--visible]="layout.sidebarOpen()"
+  (click)="layout.closeSidebar()"></span>

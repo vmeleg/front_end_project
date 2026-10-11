@@ -1,0 +1,33 @@
+@let n = noticia();
+
+<figure class="modal__hero">
+  @if (!heroFailed()) {
+  <img class="modal__hero-image" [src]="n.imagen" [alt]="n.titulo" (error)="heroFailed.set(true)">
+  } @else {
+  <span class="modal__hero-placeholder">📰</span>
+  }
+  <figcaption class="modal__hero-overlay">
+    <span class="modal__hero-badge"><span [class]="'badge ' + badge()">{{ n.categoria }}</span></span>
+    @if (variant() === 'page') {
+    <h1 class="modal__hero-title">{{ n.titulo }}</h1>
+    } @else {
+    <h2 class="modal__hero-title">{{ n.titulo }}</h2>
+    }
+  </figcaption>
+</figure>
+
+
+<section class="modal__author-row">
+  <span class="modal__author-avatar">{{ initial() }}</span>
+  @if (variant() === 'page') {
+  <span><span class="modal__author-name">{{ n.autor }}</span></span>
+  } @else {
+  <span class="modal__author-name">{{ n.autor }}</span>
+  }
+  <span class="modal__author-meta">📅 {{ n.fecha | dateEs }} ⏱ {{ n.tiempoLectura || 3 }} min de lectura</span>
+  <button class="modal__save-btn" [class.modal__save-btn--active]="isFav()" [attr.data-id]="n.id"
+    (click)="toggleFavorite()">{{ isFav() ? '★ Guardado' : '☆ Guardar' }}</button>
+</section>
+
+
+<section class="modal__body" [innerHTML]="n.contenido"></section>
