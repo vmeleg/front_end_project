@@ -200,6 +200,20 @@
     </section>
   </aside>
 
+  <!-- ── Modal: Acceso restringido ───────────────────────────── -->
+  <aside class="modal" id="access-denied-modal" role="alertdialog" aria-modal="true" aria-label="Acceso restringido">
+    <span class="modal__overlay" id="access-denied-overlay"></span>
+    <section class="modal__content">
+      <section class="confirm-dialog">
+        <h3 class="confirm-dialog__title">Acceso restringido</h3>
+        <p class="confirm-dialog__message">Lo sentimos, no tienes permisos para realizar esta acción.</p>
+        <nav class="confirm-dialog__actions" aria-label="Acciones de acceso restringido">
+          <a class="btn btn--primary" id="access-denied-home-btn" href="/index.html">Volver al inicio</a>
+        </nav>
+      </section>
+    </section>
+  </aside>
+
   <!-- ── Footer ──────────────────────────────────────────────── -->
   <footer class="footer">
     <section class="footer__content">
@@ -237,11 +251,22 @@
   </footer>
 
   <script src="/js/storage.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="/js/app.js?v=2"></script>
   <script src="/js/news-service.js"></script>
+  <script src="/js/favorites.js"></script>
+  <script src="/js/news-renderer.js"></script>
   <script src="/js/validations.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      /* ── Verificación de rol administrador ────────────────── */
+      const session = Storage.getItem('auth_session');
+      if (!session || session.loggedIn !== true) return; /* app.js redirige a login */
+
+      if (!App.hasAdminRole()) {
+        document.getElementById('access-denied-modal').classList.add('modal--active');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
       /* ── Referencias DOM ──────────────────────────────────── */
       const tableBody = document.getElementById('admin-table-body');
       const countEl = document.getElementById('admin-count');

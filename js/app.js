@@ -51,6 +51,15 @@ const App = {
   },
 
   /**
+   * Indica si la sesión activa pertenece a un administrador.
+   * @returns {boolean}
+   */
+  hasAdminRole() {
+    const session = Storage.getItem('auth_session');
+    return !!session && session.loggedIn === true && session.rol === 'admin';
+  },
+
+  /**
    * Marca el link activo del sidebar según la URL actual.
    */
   setActiveNav() {
