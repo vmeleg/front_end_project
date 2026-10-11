@@ -26,16 +26,16 @@ const NewsService = {
   },
 
   /**
-   * Obtiene todas las noticias: seed + custom, excluyendo eliminadas.
-   * Ordenadas por fecha descendente.
+   * consulta de noticias filtrando las eliminadas
    * @returns {Promise<Array>}
    */
   async getAllNews() {
     const seed = await this._fetchSeed();
     const custom = Storage.getItem('news_custom') || [];
     const deletedIds = Storage.getItem('deleted_news') || [];
+    const customIds = new Set(custom.map(n => n.id));
 
-    const filteredSeed = seed.filter(n => !deletedIds.includes(n.id));
+    const filteredSeed = seed.filter(n => !deletedIds.includes(n.id) && !customIds.has(n.id));
     const merged = [...filteredSeed, ...custom];
 
     return merged.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
@@ -124,13 +124,12 @@ const NewsService = {
    * @param {string} id
    */
   deleteNews(id) {
-    const custom = Storage.getItem('news_custom') || [];
-    const isCustom = custom.some(n => n.id === id);
-
-    if (isCustom) {
-      Storage.removeFromArray('news_custom', id);
-    } else {
-      Storage.appendToArray('deleted_news', id);
+    Storage.removeFromArray('news_custom', id);
+    if (!id.startsWith('custom-')) {
+      const deletedIds = Storage.getItem('deleted_news') || [];
+      if (!deletedIds.includes(id)) {
+        Storage.appendToArray('deleted_news', id);
+      }
     }
   },
 
