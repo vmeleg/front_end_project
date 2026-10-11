@@ -1,0 +1,37 @@
+<footer class="footer">
+  <section class="footer__content">
+    <section class="footer__brand">
+      <h3 class="footer__brand-name">PoliPress</h3>
+      <p class="footer__brand-slogan">Conectando ideas, tendencias y actualidad.</p>
+      <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura
+        completa de los eventos que importan.</p>
+    </section>
+    <nav class="footer__links">
+      <h4 class="footer__heading">Categorías</h4>
+      <ul class="footer__link-list">
+        <li><a routerLink="/" class="footer__link">Últimas Noticias</a></li>
+        @for (cat of footerCategories; track cat) {
+        <li><a routerLink="/" [queryParams]="{ cat: cat }" class="footer__link">{{ cat }}</a></li>
+        }
+      </ul>
+    </nav>
+    <nav class="footer__links">
+      <h4 class="footer__heading">Accesos Rápidos</h4>
+      <ul class="footer__link-list">
+        <li><a routerLink="/" class="footer__link">Inicio</a></li>
+        <li><a routerLink="/favoritos" class="footer__link">Favoritos</a></li>
+        <li><a routerLink="/admin" class="footer__link">Gestión de Noticias</a></li>
+      </ul>
+    </nav>
+    <section class="footer__contact">
+      <h4 class="footer__heading">Contacto</h4>
+      <p class="footer__contact-item"><span class="footer__contact-icon">✉</span> contacto@polipress.co</p>
+      <p class="footer__contact-item"><span class="footer__contact-icon">📞</span> +57 601 234 5678</p>
+      <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Calle 57 # 13-40, Bogotá D.C.,
+        Colombia</p>
+    </section>
+  </section>
+  <section class="footer__bottom">
+    <p>© 2026 PoliPress. Todos los derechos reservados.</p>
+  </section>
+</footer>
