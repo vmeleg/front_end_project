@@ -1,0 +1,16 @@
+[
+  {
+    "id": "u01",
+    "nombre": "Administrador",
+    "email": "admin@portal.com",
+    "password": "admin123",
+    "rol": "admin"
+  },
+  {
+    "id": "u02",
+    "nombre": "Usuario Demo",
+    "email": "demo@portal.com",
+    "password": "demo123",
+    "rol": "user"
+  }
+]
