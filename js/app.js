@@ -51,7 +51,7 @@ const App = {
   },
 
   /**
-   * Indica si la sesión activa pertenece a un administrador.
+   * indica si el usuario logueado tiene rol de admin 
    * @returns {boolean}
    */
   hasAdminRole() {
