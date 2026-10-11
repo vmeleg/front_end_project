@@ -1,0 +1,10 @@
+<main id="detail-main" class="main-content">
+  <nav class="mb-lg">
+    <a routerLink="/" class="btn btn--outline btn--sm">← Volver al inicio</a>
+  </nav>
+  <article id="detail-container">
+    @if (article(); as a) {
+      <app-news-detail-content [noticia]="a" variant="page" />
+    }
+  </article>
+</main>
