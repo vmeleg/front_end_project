@@ -69,7 +69,7 @@ const Validations = {
   },
 
   /**
-   * Valida longitud mínima.
+   * Valida longitud mínima. 
    * @param {string} value
    * @param {number} min — Longitud mínima requerida.
    * @returns {{ valid: boolean, message: string }}
@@ -83,7 +83,7 @@ const Validations = {
   },
 
   /**
-   * Valida que dos valores coincidan (para confirmar contraseña).
+   * Valida que dos valores coincidan (para confirmar contraseña). 
    * @param {string} value
    * @param {string} confirmValue
    * @returns {{ valid: boolean, message: string }}

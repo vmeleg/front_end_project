@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* ── Paleta principal ─────────────────────────────────────── */
+  /* ── paleta de colores delimitada para la interfaz ─────────────────────────────────────── */
   --color-primary: #1a73e8;
   --color-primary-dark: #0d47a1;
   --color-primary-light: #e8f0fe;
@@ -19,14 +19,14 @@
   --color-success: #1e8e3e;
   --color-warning: #f9ab00;
 
-  /* ── Layout ────────────────────────────────────────────────── */
+  /* ── layout ────────────────────────────────────────────────── */
   --sidebar-width: 260px;
   --sidebar-collapsed: 0px;
   --header-height: 100px;
   --category-bar-height: 44px;
   --content-max-width: 1280px;
 
-  /* ── Tipografía ────────────────────────────────────────────── */
+  /* ── tipografía ────────────────────────────────────────────── */
   --font-primary: 'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -36,7 +36,7 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
 
-  /* ── Espaciados ────────────────────────────────────────────── */
+  /* ── espaciados ────────────────────────────────────────────── */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
