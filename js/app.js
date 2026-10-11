@@ -37,12 +37,12 @@ const App = {
   },
 
   /**
-   * Auth guard: protege admin.html.
+   * Auth guard: protege admin.html y contacto.html.
    * Si no hay sesión activa, redirige a login.html.
    */
   initAuthGuard() {
     const currentPage = window.location.pathname.split('/').pop();
-    if (currentPage !== 'admin.html') return;
+    if (currentPage !== 'admin.html' && currentPage !== 'contacto.html') return;
 
     const session = Storage.getItem('auth_session');
     if (!session || session.loggedIn !== true) {

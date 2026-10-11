@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="/css/layout.css">
   <link rel="stylesheet" href="/css/components.css">
 </head>
+
 <body>
 
   <!-- ── Header ──────────────────────────────────────────────── -->
@@ -17,7 +19,9 @@
     <section class="header__top">
       <nav class="header__left" aria-label="Acciones de header">
         <button class="header__icon-btn" id="sidebar-open-btn" aria-label="Abrir menú lateral">☰</button>
-        <button class="header__icon-btn" id="search-toggle-btn" aria-label="Buscar noticias"><img src="/assets/icons/search.jpg" alt="Buscar" class="sidebar__nav-icon" style="width:22px;height:22px;"></button>
+        <button class="header__icon-btn" id="search-toggle-btn" aria-label="Buscar noticias"><img
+            src="/assets/icons/search.jpg" alt="Buscar" class="sidebar__nav-icon"
+            style="width:22px;height:22px;"></button>
       </nav>
       <section class="header__center">
         <a href="/index.html" class="header__brand-link">
@@ -37,8 +41,10 @@
 
     <section class="search-bar" id="search-bar">
       <section class="search-bar__input-wrapper">
-        <span class="search-bar__icon"><img src="/assets/icons/search.jpg" alt="" width="18" height="18" style="border-radius:3px;object-fit:cover;"></span>
-        <input type="search" class="search-bar__input" id="search-input" placeholder="Buscar noticias por título..." aria-label="Buscar noticias por título">
+        <span class="search-bar__icon"><img src="/assets/icons/search.jpg" alt="" width="18" height="18"
+            style="border-radius:3px;object-fit:cover;"></span>
+        <input type="search" class="search-bar__input" id="search-input" placeholder="Buscar noticias por título..."
+          aria-label="Buscar noticias por título">
       </section>
     </section>
 
@@ -62,7 +68,8 @@
       <h2 class="sidebar__title">PoliPress</h2>
       <button class="sidebar__close" id="sidebar-close-btn" aria-label="Cerrar menú">✕</button>
     </section>
-    <a href="/login.html" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">Iniciar sesión / Registrarse</a>
+    <a href="/login.html" class="btn btn--primary sidebar__login-btn" id="sidebar-login-btn">Iniciar sesión /
+      Registrarse</a>
     <nav class="sidebar__nav" aria-label="Navegación principal">
       <a href="/index.html" class="sidebar__link"><span class="sidebar__icon">🏠</span> Inicio</a>
       <a href="/favoritos.html" class="sidebar__link"><span class="sidebar__icon">★</span> Favoritos</a>
@@ -86,14 +93,14 @@
         <section class="form-group">
           <label class="form-group__label" for="contact-name">Nombre completo</label>
           <input type="text" class="form-group__input" id="contact-name" placeholder="Tu nombre completo"
-                 data-validate="required,minlength" data-min="3">
+            data-validate="required,minlength" data-min="3">
           <span class="form-group__error"></span>
         </section>
 
         <section class="form-group">
           <label class="form-group__label" for="contact-email">Correo electrónico</label>
           <input type="email" class="form-group__input" id="contact-email" placeholder="correo@ejemplo.com"
-                 data-validate="required,email">
+            data-validate="required,email">
           <span class="form-group__error"></span>
         </section>
 
@@ -102,21 +109,21 @@
             Teléfono <span class="form-group__optional">(opcional)</span>
           </label>
           <input type="tel" class="form-group__input" id="contact-phone" placeholder="+57 300 123 4567"
-                 data-validate="phone-co-optional">
+            data-validate="phone-co-optional">
           <span class="form-group__error"></span>
         </section>
 
         <section class="form-group">
           <label class="form-group__label" for="contact-subject">Asunto</label>
           <input type="text" class="form-group__input" id="contact-subject" placeholder="Asunto del mensaje"
-                 data-validate="required,minlength" data-min="5">
+            data-validate="required,minlength" data-min="5">
           <span class="form-group__error"></span>
         </section>
 
         <section class="form-group">
           <label class="form-group__label" for="contact-message">Mensaje</label>
           <textarea class="form-group__textarea" id="contact-message" placeholder="Escribe tu mensaje aquí..."
-                    data-validate="required,minlength" data-min="20"></textarea>
+            data-validate="required,minlength" data-min="20"></textarea>
           <span class="form-group__error"></span>
         </section>
 
@@ -131,7 +138,8 @@
       <section class="footer__brand">
         <h3 class="footer__brand-name">PoliPress</h3>
         <p class="footer__brand-slogan">Conectando ideas, tendencias y actualidad.</p>
-        <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura completa de los eventos que importan.</p>
+        <p class="footer__brand-desc">Tu fuente confiable de noticias actualizadas, análisis profundos y cobertura
+          completa de los eventos que importan.</p>
       </section>
       <nav class="footer__links">
         <h4 class="footer__heading">Categorías</h4>
@@ -153,7 +161,8 @@
         <h4 class="footer__heading">Contacto</h4>
         <p class="footer__contact-item"><span class="footer__contact-icon">✉</span> contacto@polipress.co</p>
         <p class="footer__contact-item"><span class="footer__contact-icon">📞</span> +57 601 234 5678</p>
-        <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Calle 57 # 13-40, Bogotá D.C., Colombia</p>
+        <p class="footer__contact-item"><span class="footer__contact-icon">📍</span> Calle 57 # 13-40, Bogotá D.C.,
+          Colombia</p>
       </section>
     </section>
     <section class="footer__bottom">
@@ -162,12 +171,49 @@
   </footer>
 
   <script src="/js/storage.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="/js/app.js?v=2"></script>
   <script src="/js/validations.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+      /* ── Auth Guard: Redirigir a login si no hay sesión activa ── */
+      const session = Storage.getItem('auth_session');
+      if (!session || session.loggedIn !== true) {
+        window.location.href = '/login.html';
+        return;
+      }
+
       const form = document.getElementById('contact-form');
+      const emailInput = document.getElementById('contact-email');
+      const nameInput = document.getElementById('contact-name');
       const successAlert = document.getElementById('contact-success-alert');
+
+      /* ── cargar correo y nombre del user en el formulario ── */
+      let userEmail = session.email || '';
+
+      if (!userEmail) {
+        try {
+          const res = await fetch('/data/usuarios.json');
+          const seedUsers = res.ok ? await res.json() : [];
+          const customUsers = Storage.getItem('users_custom') || [];
+          const allUsers = [...seedUsers, ...customUsers];
+          const found = allUsers.find(u => u.nombre === session.user || u.email === session.user);
+          if (found && found.email) {
+            userEmail = found.email;
+            /* Guardar en la sesión para futuros accesos */
+            session.email = userEmail;
+            Storage.setItem('auth_session', session);
+          }
+        } catch (e) {
+          console.error('Error al resolver email de usuario:', e);
+        }
+      }
+
+      if (emailInput && userEmail) {
+        emailInput.value = userEmail;
+      }
+      if (nameInput && !nameInput.value && session.user) {
+        nameInput.value = session.user;
+      }
 
       /* Inicializar validación inline (blur + input) */
       Validations.initInlineValidation(form);
@@ -182,6 +228,10 @@
         successAlert.classList.remove('alert--hidden');
         form.reset();
 
+        /* Restaurar correo y nombre del usuario logueado tras el reset */
+        if (emailInput && userEmail) emailInput.value = userEmail;
+        if (nameInput && session.user) nameInput.value = session.user;
+
         /* Limpiar todos los errores */
         form.querySelectorAll('.form-group').forEach(fg => {
           fg.classList.remove('form-group--invalid');
@@ -195,4 +245,5 @@
     });
   </script>
 </body>
+
 </html>
