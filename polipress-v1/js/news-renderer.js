@@ -440,7 +440,7 @@ const NewsRenderer = {
 
     const cta = document.createElement('a');
     cta.classList.add('btn', 'btn--primary');
-    cta.href = '/index.html';
+    cta.href = 'index.html';
     cta.textContent = 'Ir al inicio';
     empty.appendChild(cta);
 

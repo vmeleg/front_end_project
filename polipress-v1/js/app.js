@@ -46,7 +46,7 @@ const App = {
 
     const session = Storage.getItem('auth_session');
     if (!session || session.loggedIn !== true) {
-      window.location.href = '/login.html';
+      window.location.href = 'login.html';
     }
   },
 

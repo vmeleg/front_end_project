@@ -26,7 +26,7 @@ const Favorites = {
    */
   _requireAuth() {
     const currentPath = window.location.pathname + window.location.search;
-    window.location.href = '/login.html?redirect=' + encodeURIComponent(currentPath);
+    window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPath);
   },
 
   /**
@@ -120,7 +120,7 @@ const Favorites = {
 
       const loginCta = document.createElement('a');
       loginCta.classList.add('btn', 'btn--primary');
-      loginCta.href = '/login.html?redirect=/favoritos.html';
+      loginCta.href = 'login.html?redirect=favoritos.html';
       loginCta.textContent = 'Iniciar sesión';
       empty.appendChild(loginCta);
 

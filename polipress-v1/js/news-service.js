@@ -15,7 +15,7 @@ const NewsService = {
   async _fetchSeed() {
     if (this._seedCache) return this._seedCache;
     try {
-      const response = await fetch('/data/noticias.json');
+      const response = await fetch('data/noticias.json');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       this._seedCache = await response.json();
       return this._seedCache;
