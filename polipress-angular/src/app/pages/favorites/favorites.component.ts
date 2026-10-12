@@ -38,7 +38,7 @@ export class FavoritesComponent {
               .filter((a): a is Noticia => a !== null && a !== undefined);
 
             return articles.length === 0
-              ? { state: 'unavailable', count: ids.length }
+              ? { state: 'unavailable', count: 0 }
               : { state: 'list', count: articles.length, articles };
           }),
         );
